@@ -1,0 +1,20 @@
+{
+  "name": "@brim/dom",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "../dist/brim.iife.js",
+  "exports": {
+    ".": "./index.js",
+    "./core": "./view-box-on.js"
+  },
+  "types": "types/index.d.ts",
+  "files": [
+    "dist/",
+    "index.js",
+    "view-box-on.js"
+  ],
+  "scripts": {
+    "build:bundle": "vite build",
+    "build:types": "tsc"
+  }
+}

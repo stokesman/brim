@@ -1,0 +1,21 @@
+```html
+<p class="brim">Simple</p>
+
+<p class="brim">SPACEY</p>
+
+<p class="brim">Tighty</p>
+
+<script type="module">
+  import { brim } from 'brim.js'
+
+  const [first, second, third] = document.getElementsByClassName('brim')
+  
+  brim(first)
+
+  // Adjust spacing with the space prop
+  brim(second, { space: 0 })
+
+  // Adjust the edges of the fitting with the offset prop
+  brim(third, { offset: [-10, -2, -10, -4] })
+</script>
+```

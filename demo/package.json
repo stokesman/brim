@@ -1,0 +1,29 @@
+{
+  "name": "brim-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "playwright test"
+  },
+  "dependencies": {
+    "@brim/dom": "workspace:*",
+    "@brim/react": "workspace:*",
+    "@brim/solid": "workspace:*",
+    "@brim/svelte": "workspace:*",
+    "navaid": "^1.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.28.1",
+    "@sveltejs/vite-plugin-svelte": "^1.0.2",
+    "@types/react": "^18.0.25",
+    "mdsvex": "^0.10.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "solid-js": "^1.6.2",
+    "svelte": "^3.53.1"
+  }
+}

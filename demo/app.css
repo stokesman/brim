@@ -1,0 +1,99 @@
+:root {
+  /* Constants */
+  --light-figure: #343434;
+  --light-ground: whitesmoke;
+  --dark-figure: #dfdfdf;
+  --dark-ground: #242424;
+
+  /* Variable with light/dark scheme */
+  --figure: var(--dark-figure);
+  --ground: var(--dark-ground);
+  --figure-opposed: var(--light-figure);
+  --ground-opposed: var(--light-ground);
+
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 62.5%;
+  line-height: 24px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--figure);
+  background-color: var(--ground);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  box-sizing: border-box;
+}
+body {
+  font-size: 1.6em;
+}
+* > *,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  padding: 0 max(3rem, calc(50% - 480px));
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  background-color: var(--figure-opposed);
+  border: 1px outset var(--figure-opposed);
+  border-color: var(--figure-opposed);
+  border-radius: 2px;
+}
+
+pre { font-size: 1.6rem }
+
+:not(pre) > code {
+  background-color: var(--figure-opposed);
+  padding: .3em;
+  border-radius: 2px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.brim > svg {
+  display: block;
+  overflow: visible;
+  fill: currentColor;
+  max-width: 100%;
+}
+
+#app {
+  margin: 0 auto;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --figure: var(--light-figure);
+    --ground: var(--light-ground);
+    --figure-opposed: var(--dark-figure);
+    --ground-opposed: var(--dark-ground);
+  }
+  a:hover {
+    color: #747bff;
+  }
+}

@@ -1,0 +1,129 @@
+<script>
+  import BrimDom from './lib/BrimDom.svelte'
+  import BrimReact from './lib/BrimReact.svelte'
+  import BrimSolid from './lib/BrimSolid.svelte'
+  import { Brim as BrimSvelte } from '@brim/svelte'
+
+  const flavorList = {
+    DOM: BrimDom,
+    React: BrimReact,
+    Solid: BrimSolid,
+    Svelte: BrimSvelte
+  }
+</script>
+
+<section class="full">
+
+  ## Tracking tests
+
+  ### Via CSS `letter-spacing`
+
+  <div class="set negatively">
+
+    #### Negatively
+
+    {#each Object.entries(flavorList) as [flavor, Brim]}
+      <small>{flavor}</small>
+      <svelte:component this={Brim} text="Equivocation"/>
+    {/each}
+  </div>
+
+  <div class="set">
+
+    #### Neutrally
+
+    {#each Object.entries(flavorList) as [flavor, Brim]}
+      <small>{flavor}</small>
+      <svelte:component this={Brim} text="EQUIVOCATION"/>
+    {/each}
+  </div>
+
+  <div class="set positively">
+
+    #### Positively
+
+    {#each Object.entries(flavorList) as [flavor, Brim]}
+      <small>{flavor}</small>
+      <svelte:component this={Brim} text="EQUIVOCATION"/>
+    {/each}
+  </div>
+
+  ### Via Brim `space`
+
+  <div class="set">
+
+    #### Negatively
+
+    {#each Object.entries(flavorList) as [flavor, Brim]}
+      <small>{flavor}</small>
+      <svelte:component this={Brim} text="Equivocation" space={-5}/>
+    {/each}
+  </div>
+
+  <div class="set">
+
+    #### Neutrally
+
+    {#each Object.entries(flavorList) as [flavor, Brim]}
+      <small>{flavor}</small>
+      <svelte:component this={Brim} text="EQUIVOCATION"/>
+    {/each}
+  </div>
+
+  <div class="set">
+
+    #### Positively
+
+    {#each Object.entries(flavorList) as [flavor, Brim]}
+      <small>{flavor}</small>
+      <svelte:component this={Brim} text="EQUIVOCATION" space={22}/>
+    {/each}
+  </div>
+
+</section>
+
+<style>
+  section {
+    display: grid;
+    grid-template: auto / repeat(3, 1fr);
+    gap: 1em;
+  }
+  section > :global(:is(h2, h3)) {
+    grid-column: -1 / 1;
+  }
+  .set {
+    position: relative;
+    display: grid;
+    grid-template: auto repeat(4, auto 1fr) / 1fr;
+    align-items: center;
+  }
+  .set::before,
+  .set::after {
+    content: '';
+    position: absolute;
+    top:0;
+    width: 1px;
+    background: deeppink;
+    opacity: .5;
+    height: 100%;
+  }
+  .set::before {
+    left: 0;
+  }
+  .set::after {
+    right: 0;
+  }
+  small {
+    background: var(--figure-opposed);
+    color: var(--ground-opposed);
+    padding: .25em .5em;
+    border-radius: 9em;
+  }
+  .negatively :global(text) {
+    letter-spacing: -0.05em;
+  }
+  .positively :global(text) {
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+</style>

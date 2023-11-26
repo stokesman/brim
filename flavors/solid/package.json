@@ -1,0 +1,33 @@
+{
+  "name": "@brim/solid",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./dist/brim.js"
+  },
+  "types": "./types/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "dependencies": {
+    "@brim/dom": "workspace:*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.28.1",
+    "@rollup/plugin-alias": "^4.0.2",
+    "solid-js": "^1.6.2",
+    "solid-js1": "npm:solid-js@1.0.0",
+    "vite-plugin-solid": "^2.4.0"
+  },
+  "peerDependencies": {
+    "solid-js": ">=1 < 2"
+  },
+  "scripts": {
+    "dev": "vite dev",
+    "build:bundle": "vite build",
+    "build:types": "tsc",
+    "test": "pnpm test:current && pnpm test:v1",
+    "test:current": "pnpm playwright test",
+    "test:v1": "SOLID_VERSION=1 pnpm playwright test"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "brim",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:flavors": "pnpm flavors:bundle && pnpm flavors:types",
+    "flavors:bundle": "pnpm --filter '@brim/*' build:bundle",
+    "flavors:types": "pnpm --filter '@brim/*' build:types"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0"
+  }
+}

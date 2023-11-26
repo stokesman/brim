@@ -1,0 +1,31 @@
+{
+  "name": "@brim/react",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./dist/brim.js"
+  },
+  "types": "types/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "dependencies": {
+    "@brim/dom": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.25",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "eslint": "^8.29.0",
+    "eslint-plugin-react": "github:jsx-eslint/eslint-plugin-react",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "react": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0 < 19"
+  },
+  "scripts": {
+    "build:bundle": "vite build",
+    "build:types": "tsc",
+    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint ."
+  }
+}

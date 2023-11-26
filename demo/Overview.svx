@@ -1,0 +1,164 @@
+<script context=module>
+  export const metadata = {
+    title: 'Overview'
+  }
+</script>
+
+<script>
+  import { onMount } from 'svelte';
+  import { tweened } from 'svelte/motion'
+  import { backOut, expoOut } from 'svelte/easing'
+  import Resiczar from './lib/Resiczar.svelte'
+  import usage_dom from './lib/usage-dom.svx'
+  import usage_react from './lib/usage-react.svx'
+  import usage_solid from './lib/usage-solid.svx'
+  import usage_svelte from './lib/usage-svelte.svx'
+
+  export let Brim
+  export let flavor
+  export let fontFamily
+
+  const code_samples = {
+    usage: {
+      dom: usage_dom,
+      react: usage_react,
+      solid: usage_solid,
+      svelte: usage_svelte,
+    }
+  }
+
+  const introFigureSize = tweened([3, 3.2], { easing: backOut, duration: 987 })
+  let header;
+  onMount(() => {
+    introFigureSize.set([320, 300]).then(() => {
+      introFigureSize.set([header.offsetWidth, header.offsetHeight], { easing: expoOut })
+    })
+  })
+</script>
+
+<header bind:this={header}>
+  <Resiczar dimensions={$introFigureSize}>
+    {#key fontFamily}
+      <figure style:font-family={fontFamily}>
+        <h1>
+          <svelte:component this={Brim} text="Brim" space={-5} offset={[-10, -2.5, -10, -3]}/>
+        </h1>
+        <h2 style:font-weight=normal>
+          <svelte:component this={Brim} text="A little library for text fitting" offset={[0, -.8, 0, -.8]}/>
+        </h2>
+        <i style:font-weight=100>
+          <svelte:component this={Brim} text="¡Facilísimo!" offset={[0, 0, 0, -1.5]}/>
+        </i>
+        <b style:text-transform=uppercase><svelte:component this={Brim} text="Lets SVG flex"/></b>
+        <svelte:component this={Brim} text="With a &#129295; of JavaScript" space={-3.5}/>
+      </figure>
+    {/key}
+  </Resiczar>
+</header>
+<section>
+
+  ### Brim’s fit in web text fitting techniques
+
+  Most commonly web text fitting is achieved with an iterative alogithm to land 
+  on a font size that fits well. A more clever technique is computing a CSS 
+  transform that will fit the text. Likely the oldest and simplest method is one
+  that requires no scripting. It's merely an SVG with its `viewBox` attribute
+  set to snuggly fit the text. The widespread use of this latter method is 
+  assumedly hampered by the tedium of writing the right `viewBox` attribute for
+  the given text. This library is basically just the little bit of script needed
+  to write the `viewBox` automatically.
+</section>
+<section>
+
+  ### Nuances of Letter Spacing
+
+  Letter spacing works but setting it via CSS increases the disparity of line
+  lengths across browsers. If cross-browser precison with letter-spaced text is
+  required then the `space` prop is recommended over CSS. Still, some
+  variance appears inevitable across browsers.
+
+</section>
+<Resiczar>
+  {#key fontFamily}
+    <figure>
+      <div style:font-family={fontFamily} class=force-letter-space>
+        <svelte:component this={Brim} text="Joulei Esmoucs"/>
+      </div>
+      <figcaption>Letter-spaced with CSS</figcaption>
+    </figure>
+    <figure>
+      <div style:font-family={fontFamily}>
+        <svelte:component this={Brim} text="Joulei Esmoucs" space=-7/>
+      </div>
+      <figcaption><code>space</code> prop</figcaption>
+    </figure>
+  {/key}
+</Resiczar>
+
+<section class="full">
+
+  ## Usage
+
+  <svelte:component this={code_samples.usage[flavor]}/>
+</section>
+
+<!-- indenting this section breaks the list within -->
+<section class="full">
+
+## Limitations
+
+- No support for element children. So for example, there's no linking individual words or characters.
+- In WebKit-based browsers (Safari or Orion), large size changes can result in a poor fit. It can be worked around.
+- No flavor provides a reference to internal elements.
+
+</section>
+
+<style>
+  header :global(.resiczar) {
+    max-width: 100%;
+    max-height: 520px;
+  }
+
+  header :global(.brim) {
+    display: flex;
+    min-height: 0;
+  }
+
+  :global(.resiczar):before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    right: 0; left: 0;
+    border: 1px dotted deeppink;
+    opacity: .5;
+    pointer-events: none;
+  }
+  :global(.resiczar > meta) {
+    opacity: .25;
+  }
+  :global(.resiczar:hover > meta) {
+    opacity: 1;
+  }
+
+  figure,
+  figure > :where(:not(figcaption)) {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  figure {
+    max-height: 100%;
+  }
+  figure > :global(*) {
+    flex: 0 1 auto;
+    max-width: 100%;
+  }
+  figure :global(svg) {
+    min-height: 0;
+    width: 100%;
+  }
+  .force-letter-space :global(text) {
+    letter-spacing: -.07em !important;
+  }
+</style>

@@ -1,0 +1,109 @@
+<script>
+  import navaid from 'navaid';
+  import BrimDom from './lib/BrimDom.svelte'
+  import BrimReact from './lib/BrimReact.svelte'
+  import BrimSolid from './lib/BrimSolid.svelte'
+  import BrimSvelte from './lib/BrimSvelte.svelte'
+  import * as OverviewPage from './Overview.svx'
+  import Space from './LetterspaceTest.svx'
+  import Tester from './Tester.svelte'
+
+  let fontList = [
+    ['inherit', 'System'],
+    ['serif', 'Serif'],
+    ['sans-serif', 'Sans'],
+    ['fantasy', 'Fantasy'],
+  ]
+  let [[fontFamily]] = fontList
+
+  let flavor = 'svelte'
+  let flavorMap = {
+    dom: BrimDom,
+    react: BrimReact,
+    solid: BrimSolid,
+    svelte: BrimSvelte,
+  }
+  let Brim
+  $: Brim = flavorMap[flavor]
+
+  let Page
+
+  navaid()
+    .on('/', () => {
+      Page = OverviewPage.default
+      document.body.className = OverviewPage.metadata.title.toLowerCase()
+    })
+    .on('/space', () => {
+      Page = Space
+    })
+    .on('/test', () => {
+      Page = Tester
+      document.body.className = ''
+    })
+    .listen()
+</script>
+
+<svelte:body bind:this={body}/>
+<div>
+  {#if import.meta.env.DEV}
+    <nav>
+      <a href="/">Overview</a>
+      <a href="/space">Space</a>
+      <a href="/test">Test</a>
+    </nav>
+  {/if}
+  <label>
+    Font Family
+    <select bind:value={fontFamily}>
+      {#each fontList as [value, label]}
+        <option {value}>{label}</option>
+      {/each}
+    </select>
+  </label>
+  <span class="control">
+    Implementation
+    {#each Object.keys(flavorMap) as key}
+      <label>
+        <input type=radio value={key} bind:group={flavor}/>
+        {key.replace(/^./,  index => key.charAt(index).toUpperCase())}
+      </label>
+    {/each}
+  </span>
+</div>
+<main>
+  <svelte:component this={Page} {Brim} {flavor} {fontFamily}/>
+</main>
+
+<style>
+  :global(.overview) main {
+    display: grid;
+    gap: 4rem 4%;
+    grid-template: minmax(340px, auto) auto / 48% 48%;
+    align-items: center;
+  }
+  div {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    background: var(--figure-opposed);
+    padding: .8rem 1rem;
+    display: grid;
+    grid-template: auto auto / 1fr 1fr;
+  }
+  div > nav {
+    grid-row: 1 / -1;
+    font-size: 1.25em;
+    display: flex;
+    gap: 2px;
+    margin: -.8rem 0;
+  }
+  nav > a {
+    box-shadow: inset 0 3px 0 0 var(--ground);
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+  }
+  nav > a:hover {
+      box-shadow: inset 0 3px 0 0 var(--figure);
+  }
+</style>

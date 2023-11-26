@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "./index.jsx"
+  ],
+  "compilerOptions": {
+    "outDir": "types",
+    "lib": ["DOM", "ES6"]
+  }
+}

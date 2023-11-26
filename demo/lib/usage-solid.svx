@@ -1,0 +1,11 @@
+```jsx
+import { Brim } from '@brim/solid'
+
+<Brim>Simple</Brim>
+
+{/* Adjust spacing with the space prop */}
+<Brim space={3}>SPACEY</Brim>
+
+{/* Adjust the edges of the fitting with the offset prop */}
+<Brim offset={[-10, -2, -10, -4]}>Tighty</Brim>
+```
